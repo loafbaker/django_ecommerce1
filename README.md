@@ -1,7 +1,7 @@
 django_ecommerce1
 =================
 
-A typical eCommerce site built by django framework
+A typical eCommerce site built by django framework and Bootstrap 3
 
 Run in django 5.2 and sqlite3
 
@@ -13,6 +13,7 @@ Run in django 5.2 and sqlite3
 - Upgrade to the latest version of stripe
 - Migrate database file to adapt modern Django framework
 - Improve supporting documents
+- Add a `.gitignore` file
 
 ## Installation
 
