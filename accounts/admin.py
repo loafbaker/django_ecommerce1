@@ -15,7 +15,7 @@ admin.site.register(EmailConfirmed)
 
 
 class EmailMarketingSignUpAdmin(admin.ModelAdmin):
-    list_display = ['__unicode__', 'timestamp']
+    list_display = ['__str__', 'timestamp']
     class Meta:
         model = EmailMarketingSignUp
 

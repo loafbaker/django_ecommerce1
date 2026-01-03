@@ -1,20 +1,21 @@
 from django.db import models
 from django.conf import settings
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from django.template.loader import render_to_string
+
 # Create your models here.
 from localflavor.us.us_states import US_STATES
 
 class UserDefaultAddress(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    shipping = models.ForeignKey('UserAddress', null=True, \
-        blank=True, related_name='user_address_shipping_default')
-    billing = models.ForeignKey('UserAddress', null=True, \
-        blank=True, related_name='user_address_billing_default')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    shipping = models.ForeignKey('UserAddress', null=True,
+        blank=True, related_name='user_address_shipping_default', on_delete=models.CASCADE)
+    billing = models.ForeignKey('UserAddress', null=True,
+        blank=True, related_name='user_address_billing_default', on_delete=models.CASCADE)
 
-    def __unicode(self):
+    def __str__(self):
         return str(self.user.username)
 
 class UserAddressManager(models.Manager):
@@ -22,7 +23,7 @@ class UserAddressManager(models.Manager):
         return super(UserAddressManager, self).filter(billing=True).filter(user=user)
 
 class UserAddress(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     address = models.CharField(max_length=120)
     address2 = models.CharField(max_length=120, blank=True, null=True)
     city = models.CharField(max_length=120)
@@ -37,7 +38,7 @@ class UserAddress(models.Model):
 
     objects = UserAddressManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_address()
 
     def get_address(self):
@@ -47,18 +48,18 @@ class UserAddress(models.Model):
         ordering = ['-updated', '-timestamp']
 
 class UserStripe(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_id = models.CharField(max_length=120, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
        return str(self.stripe_id)
 
 class EmailConfirmed(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     activation_key = models.CharField(max_length=200)
     confirmed = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.confirmed)
 
     def activate_user_email(self):
@@ -86,5 +87,5 @@ class EmailMarketingSignUp(models.Model):
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     # confirmed = models.BooleanField(default=False)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.email)

@@ -3,7 +3,67 @@ django_ecommerce1
 
 A typical eCommerce site built by django framework
 
-Run in django 1.6 and sqlite3
+Run in django 5.2 and sqlite3
+
+## Updates in 2026
+
+### Current version
+
+- Upgrade to Django 5.2.9 and Python 3.10
+- Upgrade to the latest version of stripe
+- Migrate database file to adapt modern Django framework
+- Improve supporting documents
+
+## Installation
+
+1. Establish a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+2. Activate the virtual environment
+
+```bash
+source venv/bin/activate
+```
+
+3. Install the prerequisites
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+4. Update the database file
+
+```bash
+python manage.py migrate
+```
+
+5. Create a superuser account
+
+```bash
+python manage.py createsuperuser
+```
+
+6. Collect static files (only for production deployment)
+
+```bash
+python manage.py collectstatic
+```
+
+7. Start the web service
+
+```bash
+python manage.py runserver
+```
+
+Press `Ctrl + C` to exit
+
+Run `deactivate` to leave the virtual environment
+
+
+## Versions that run in django 1.6 (deprecated)
 
 Ver.1	[Products App Views & Templates](../../tree/b66ce5397ecd8894d2d69c444d179a50defb8018)
 

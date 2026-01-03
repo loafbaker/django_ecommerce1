@@ -1,9 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 
 # Create your views here.
-
-from marketing.forms import EmailForm
-from marketing.models import MarketingMessage, Slider
+from marketing.models import Slider
 from .models import Product, ProductImage
 
 def search(request):

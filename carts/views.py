@@ -1,14 +1,15 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # Create your views here.
 from products.models import Product, Variation
 from .models import Cart, CartItem
 from decimal import Decimal
 
+
 def view(request):
     try:
-        the_id = request.session['cart_id'] 
+        the_id = request.session['cart_id']
         cart = Cart.objects.get(id=the_id)
     except:
         the_id = None
@@ -28,26 +29,27 @@ def view(request):
     template = "carts/view.html"
     return render(request, template, context)
 
+
 def remove_from_cart(request, id):
     try:
-        the_id = request.session['cart_id'] 
+        the_id = request.session['cart_id']
         cart = Cart.objects.get(id=the_id)
     except:
         return HttpResponseRedirect(reverse("cart"))
-    
+
     cartitem = CartItem.objects.get(id=id)
-    #cartitem.delete() #delete the cartitem perminantly
+    # cartitem.delete() #delete the cartitem perminantly
     cartitem.cart = None
     cartitem.save()
-    #send "success message"
+    # send "success message"
     return HttpResponseRedirect(reverse("cart"))
 
 
 def add_to_cart(request, slug):
     request.session.set_expiry(120000)
- 
+
     try:
-        the_id = request.session['cart_id'] 
+        the_id = request.session['cart_id']
     except:
         new_cart = Cart()
         new_cart.save()
@@ -63,7 +65,7 @@ def add_to_cart(request, slug):
     except:
         pass
 
-    product_var = [] # product variation
+    product_var = []  # product variation
     if request.method == "POST":
         qty = request.POST['qty']
         if int(qty) > 0:
@@ -86,4 +88,3 @@ def add_to_cart(request, slug):
             return HttpResponseRedirect(reverse("cart"))
     # error message
     return HttpResponseRedirect(reverse("cart"))
-

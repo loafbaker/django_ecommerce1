@@ -13,26 +13,33 @@ def is_offset_greater(time_string_offset):
     return now_time_tz_aware > offset_time_tz_aware 
 
 
-class DisplayMarketing():
-    def process_request(self, request):
+class DisplayMarketing:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
     #   if 'marketing_message' not in request.session:
-            try:
-                message_offset = request.session['dismiss_message_for'] # as string
-            except:
-                message_offset = None
+        try:
+            message_offset = request.session['dismiss_message_for'] # as string
+        except:
+            message_offset = None
 
-            try:
-                marketing_message = MarketingMessage.objects.get_featured_item().message
-            except:
-                marketing_message = False
+        try:
+            marketing_message = MarketingMessage.objects.get_featured_item().message
+        except:
+            marketing_message = False
 
-            if marketing_message:
-                if message_offset is None:
-                    request.session['marketing_message'] = marketing_message
-                elif is_offset_greater(message_offset):
-                    request.session['marketing_message'] = marketing_message
-                else:
-                    try:
-                        del request.session['marketing_message']
-                    except:
-                        pass
+        if marketing_message:
+            if message_offset is None:
+                request.session['marketing_message'] = marketing_message
+            elif is_offset_greater(message_offset):
+                request.session['marketing_message'] = marketing_message
+            else:
+                try:
+                    del request.session['marketing_message']
+                except:
+                    pass
+
+        response = self.get_response(request)
+
+        return response

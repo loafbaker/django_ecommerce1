@@ -11,15 +11,15 @@ from .forms import EmailForm
 from accounts.models import EmailMarketingSignUp
 
 def dismiss_marketing_message(request):
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         data = {'success': True}
         json_data = json.dumps(data)
         request.session['dismiss_message_for'] = str(timezone.now() + \
-            datetime.timedelta(hours=settings.MARKETING_HOURS_OFFSET, \
-                               minutes=settings.MARKETING_MINUTES_OFFSET, \
+            datetime.timedelta(hours=settings.MARKETING_HOURS_OFFSET,
+                               minutes=settings.MARKETING_MINUTES_OFFSET,
                                seconds=settings.MARKETING_SECONDS_OFFSET))
-        print data
-        print json_data
+        print(data)
+        print(json_data)
         return HttpResponse(json_data, content_type='application/json')
     else:
         return Http404

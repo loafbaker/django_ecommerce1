@@ -1,4 +1,4 @@
-#import datetime
+# import datetime
 
 from django.conf import settings
 from django.db import models
@@ -42,7 +42,7 @@ class MarketingMessage(models.Model):
 
     objects = MarketingManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.message[:12])
 
     class Meta:
@@ -67,7 +67,7 @@ class Slider(models.Model):
 
     objects = MarketingManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.image)
 
     class Meta:

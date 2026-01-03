@@ -16,25 +16,25 @@ STATUS_CHOICES = (
 
 try:
     tax_rate = settings.DEFAULT_TAX_RATE
-except Exception, e:
+except Exception as e:
     raise NotImplementedError(str(e))
 
 
 class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.CASCADE)
     order_id = models.CharField(max_length=120, default='ABC', unique=True)
-    cart = models.ForeignKey(Cart)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     status = models.CharField(max_length=120, choices=STATUS_CHOICES, default='Started')
     # add address
-    shipping_address = models.ForeignKey(UserAddress, related_name='shipping_address', blank=True, null=True)
-    billing_address = models.ForeignKey(UserAddress, related_name='billing_address', blank=True, null=True)
-    sub_total = models.DecimalField(default=Decimal(str(10.99)), max_digits=1000, decimal_places=2) # Python 2.6 do not support Decimal
-    tax_total = models.DecimalField(default=Decimal(str(0.99)), max_digits=1000, decimal_places=2)
-    final_total = models.DecimalField(default=Decimal(str(10.99)), max_digits=1000, decimal_places=2)
+    shipping_address = models.ForeignKey(UserAddress, related_name='shipping_address', blank=True, null=True, on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(UserAddress, related_name='billing_address', blank=True, null=True, on_delete=models.CASCADE)
+    sub_total = models.DecimalField(default=Decimal(10.99), max_digits=1000, decimal_places=2)
+    tax_total = models.DecimalField(default=Decimal(0.99), max_digits=1000, decimal_places=2)
+    final_total = models.DecimalField(default=Decimal(10.99), max_digits=1000, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.order_id
 
     def get_final_amount(self):

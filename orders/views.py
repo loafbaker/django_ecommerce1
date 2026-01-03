@@ -1,10 +1,10 @@
 import stripe
 
 from django.shortcuts import render, HttpResponseRedirect
-from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 # Create your views here.
 from accounts.models import UserAddress
@@ -16,7 +16,7 @@ from .utils import id_generator
 try:
     stripe_pub = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret = settings.STRIPE_SECRET_KEY
-except Exception, e:
+except Exception as e:
     raise NotImplementedError(str(e))
 
 stripe.api_key = stripe_secret
@@ -63,7 +63,7 @@ def checkout(request):
         address_added = None
 
     if address_added is None:
-       address_form = UserAddressForm()   
+       address_form = UserAddressForm()
     else:
        address_form = None
 
@@ -76,7 +76,7 @@ def checkout(request):
         try:
             user_stripe = request.user.userstripe.stripe_id
             customer = stripe.Customer.retrieve(user_stripe)
-            print customer
+            print(customer)
         except:
             customer = None
 
@@ -94,7 +94,7 @@ def checkout(request):
             except:
                 billing_address_instance = None
 
-            card = customer.sources.create(source=token)
+            card = stripe.Customer.create_source(customer.id, source=token)
             card.address_city = billing_address_instance.city or None
             card.address_country = billing_address_instance.country or None
             card.address_line1 = billing_address_instance.address or None
@@ -110,8 +110,8 @@ def checkout(request):
                 customer=customer,
                 description="Charge for %s" % (request.user.username)
             )
-            print card
-            print charge
+            print(card)
+            print(charge)
             if charge['captured']:
                 new_order.status = 'Finished'
                 new_order.shipping_address = shipping_address_instance

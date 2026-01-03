@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, Http404
 from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 import re
 
 # Create your views here.
@@ -87,7 +87,7 @@ def add_user_address(request):
         next_page = request.GET.get("next")
     except:
         next_page = None
-    form = UserAddressForm(request.POST) or none
+    form = UserAddressForm(request.POST) or None
     if request.method == "POST":
         if form.is_valid():
             new_address = form.save(commit=False)
@@ -108,4 +108,4 @@ def add_user_address(request):
         'submit_btn': submit_btn,
         'form_title': form_title,
     }
-    return render(request, "form.html", context) 
+    return render(request, "form.html", context)
