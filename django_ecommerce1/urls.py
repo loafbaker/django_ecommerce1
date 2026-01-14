@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 
 from products import views as products_views
 from carts import views as carts_views
@@ -29,9 +29,9 @@ urlpatterns = [
     path('', products_views.home, name='home'),
     path('s/', products_views.search, name='search'),
     path('products/', products_views.all, name='products'),
-    re_path(r'^products/(?P<slug>[\w-]*)/$', products_views.single, name='single_product'),
-    re_path(r'^cart/(?P<id>\d+)/$', carts_views.remove_from_cart, name='remove_from_cart'),
-    re_path(r'^cart/(?P<slug>[\w-]*)/$', carts_views.add_to_cart, name='add_to_cart'),
+    path('products/<slug:slug>/', products_views.single, name='single_product'),
+    path('cart/<int:id>/', carts_views.remove_from_cart, name='remove_from_cart'),
+    path('cart/<slug:slug>/', carts_views.add_to_cart, name='add_to_cart'),
     path('cart/', carts_views.view, name='cart'),
     path('checkout/', orders_views.checkout, name='checkout'),
     path('orders/', orders_views.orders, name='user_orders'),
@@ -44,5 +44,5 @@ urlpatterns = [
     path('accounts/login/', accounts_views.login_view, name='auth_login'),
     path('accounts/register/', accounts_views.registration_view, name='auth_register'),
     path('accounts/address/add/', accounts_views.add_user_address, name='add_user_address'),
-    re_path(r'^accounts/activate/(?P<activation_key>\w+)/$', accounts_views.activation_view, name='activation_view'),
+    path('accounts/activate/<str:activation_key>/', accounts_views.activation_view, name='activation_view'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

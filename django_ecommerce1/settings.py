@@ -157,9 +157,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static' / 'static_files',
 ]
 
-STRIPE_SECRET_KEY = 'sk_test_xu0ffxH1nyLcIOfUhg3U2Kh9'
+STRIPE_SECRET_KEY = 'sk_test_<your-own-stripe-secret-key>'  # change to your own stripe key
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_XgGj0KSd7oA9Nu3BVXDqZnqw'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_<your-own-stripe-publishable-key>' # change to your own publishable key
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
