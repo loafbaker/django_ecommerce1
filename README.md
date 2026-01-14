@@ -15,6 +15,7 @@ Run in django 5.2 and sqlite3
 - Improve supporting documents
 - Add a `.gitignore` file
 - Optimize the URL patterns
+- Restructure templates
 
 ## Installation
 
