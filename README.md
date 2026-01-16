@@ -19,6 +19,42 @@ Run in django 5.2 and sqlite3
 
 ## Installation
 
+### Install with `uv` (recommended)
+
+1. Install the prerequisites
+
+```bash
+uv sync
+```
+
+2. Update the database file
+
+```bash
+uv run manage.py migrate
+```
+
+3. *(Optional)* Create a superuser account
+
+```bash
+uv run manage.py createsuperuser
+```
+
+4. Collect static files (only for production deployment)
+
+```bash
+uv run manage.py collectstatic
+```
+
+5. Start the web service
+
+```bash
+uv run manage.py runserver
+```
+
+Press `Ctrl + C` to exit
+
+### Install with `pip`
+
 1. Establish a virtual environment
 
 ```bash
@@ -34,7 +70,7 @@ source venv/bin/activate
 3. Install the prerequisites
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install -r requirements.in
 ```
 
 4. Update the database file
@@ -43,7 +79,7 @@ python -m pip install -r requirements.txt
 python manage.py migrate
 ```
 
-5. Create a superuser account
+5. *(Optional)* Create a superuser account
 
 ```bash
 python manage.py createsuperuser
