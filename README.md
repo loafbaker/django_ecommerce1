@@ -101,6 +101,12 @@ Press `Ctrl + C` to exit
 
 Run `deactivate` to leave the virtual environment
 
+## Benchmark
+
+```bash
+python manage.py test
+```
+
 
 ## Deprecated versions
 
