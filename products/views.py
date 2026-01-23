@@ -51,4 +51,4 @@ def single(request, slug):
         template = "products/single.html"
         return render(request, template, context)
     except:
-        return Http404
+        raise Http404("No product found for this slug.")

@@ -9,7 +9,7 @@ Run in django 5.2 and sqlite3
 
 ### Current version
 
-- Upgrade to Django 5.2.9 and Python 3.10
+- Upgrade to Django 5.2 and Python 3.10
 - Upgrade to the latest version of stripe
 - Migrate database file to adapt modern Django framework
 - Improve supporting documents

@@ -70,7 +70,7 @@ Ver.33	[Update Order Model](../../tree/322332c94dd15fe55dec8ae5d993b23ab94399e7)
 
 Ver.34	[Login Required Checkout](../../tree/042c2c789c4df2dbe62ff59cd87448f5114f500d)
 
-Ver.35	[User Stipe Account](../../tree/8da3919d38cde56664178bf7fc6bce30ab2d2e3d)
+Ver.35	[User Stripe Account](../../tree/8da3919d38cde56664178bf7fc6bce30ab2d2e3d)
 
 Ver.36	[Logout View](../../tree/3f7279ac24875b53873eac5febf02d8ca18717e6)
 
