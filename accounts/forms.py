@@ -31,14 +31,13 @@ class LoginForm(forms.Form):
         password = self.cleaned_data.get('password')
         try:
             user = User.objects.get(username=username)
-        except:
+        except User.DoesNotExist:
             user = None
         if user is not None and not user.check_password(password):
             raise forms.ValidationError('Invalid Password')
         elif user is None:
             pass
-        else:
-            return password
+        return password
 
 class RegistrationForm(forms.ModelForm):
     email = forms.EmailField(label='Your Email')
